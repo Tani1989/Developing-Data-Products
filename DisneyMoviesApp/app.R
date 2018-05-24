@@ -149,7 +149,7 @@ server <- function(input, output,session) {
       docs <- tm_map(docs, toSpace, "\\|")
       # Convert the text to lower case
       docs <- tm_map(docs, content_transformer(tolower))
-      # Remove numbers
+      # Remove numbers.
       docs <- tm_map(docs, removeNumbers)
       # Remove english common stopwords
       docs <- tm_map(docs, removeWords, stopwords("english"))

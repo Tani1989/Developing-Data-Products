@@ -1,4 +1,3 @@
-#install.packages("shinyjs")
 
 ui <-   navbarPage("Disney",
                    
@@ -47,26 +46,12 @@ ui <-   navbarPage("Disney",
 server <- function(input, output,session) {
   
   
-  #setwd("W:/disneyShinyapp")
-  
+
   Gross_Income <- read.csv("disney_movies_total_gross.csv",header = TRUE,fileEncoding="UTF-8-BOM")
   Characters <- read.csv("disney-characters.csv",header = TRUE,fileEncoding="UTF-8-BOM")
   Directors <- read.csv("disney-director.csv",header = TRUE,fileEncoding="UTF-8-BOM")
   
   library(shiny)
-  
-  
-  #install.packages("ggplot2",repos = 'http://cran.rstudio.com/')
-  #install.packages("tm",repos = 'http://cran.rstudio.com/')
-  #install.packages("SnowballC", repos = 'http://cran.rstudio.com/')
-  #install.packages("wordcloud",repos = 'http://cran.rstudio.com/')
-  #install.packages("NLP",repos = 'http://cran.rstudio.com/')
-  #install.packages("RColorBrewer",repos = 'http://cran.rstudio.com/')
-  #install.packages("date",repos = 'http://cran.rstudio.com/')
-  #install.packages("plyr",repos = 'http://cran.rstudio.com/')
-  #install.packages("dplyr",repos ='http://cran.rstudio.com/' )
-  
-  #library(shinyjs)
   library(ggplot2)
   library(tm)
   library(SnowballC)
@@ -99,16 +84,7 @@ server <- function(input, output,session) {
     test <- subset(outVar(),outVar()$movie_title == input$columns)
     return(test)
   })
-  output$plot <- renderPlot({
-    
-    dd <- as.numeric(gsub('[$,]','',outVar()$total_gross))
-    ss <- as.numeric(gsub('[$,]','',outVar()$inflation_adjusted_gross))
-    options(scipen=1000000)
-    ggplot(data = outVar(),aes_string(x = dd,y = ss)) +
-      geom_point() + xlim(50000000,530000000) + ylim(50000000,530000000) +
-      xlab(NULL) + ylab(NULL)
-    
-  })
+  
   output$cloud <- renderPlot({
     
     if(input$income1 == "Total Gross Income"){
